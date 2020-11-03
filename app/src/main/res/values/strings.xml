@@ -2,4 +2,7 @@
     <string name="app_name">Firebaseauth</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgetpass">FORGET PASSWORD</string>
+    <string name="forgetpassdetail">PROVIDE YOUR ACCOUNTS EMAIL FOR WHICH YOU WANT TO RESET PASSWORD
+    </string>
 </resources>
