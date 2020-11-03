@@ -13,8 +13,7 @@
         android:background="@color/colorpage"
         android:orientation="vertical">
         <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:background="@color/colorwhite"
+            android:layout_width="150dp"
             android:layout_gravity="center"
             app:cardCornerRadius="12dp"
             android:padding="16dp"
