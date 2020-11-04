@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forgetpass">FORGOT PASSWORD</string>
+    <string name="resetpass">NEW\n CREDENTIALS</string>
     <string name="forgetpassdetail">PROVIDE YOUR ACCOUNTS EMAIL FOR WHICH YOU WANT TO RESET PASSWORD
     </string>
     <string name="otptext">CO\nDE</string>
