@@ -46,7 +46,7 @@ public class LoginFragmentone extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_login, container, false);
+        View view= inflater.inflate(R.layout.fragment_login_fragmentone, container, false);
         gotoRegister=view.findViewById(R.id.gotoSignin);
         gotomap=view.findViewById(R.id.gotoMap);
         resetPass=view.findViewById(R.id.forgotPassword);
