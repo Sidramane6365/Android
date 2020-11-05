@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forgetpass">FORGOT PASSWORD</string>
     <string name="resetpass">NEW\n CREDENTIALS</string>
+    <string name="logintext">DO NOT HAVE ACCOUNT? CREATE </string>
     <string name="passupdate">PASSWORD\n UPDATED</string>
     <string name="passupdateone">YOUR PASSWORD HAS BEEN UPDATED</string>
     <string name="resetpassone">YOUR IDENTITY HAS BEEN VERIFIED!\n SET YOUR NEW PASSWORD</string>
