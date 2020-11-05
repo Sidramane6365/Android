@@ -76,7 +76,7 @@ private FirebaseAuth firebaseAuth;
 
                  if (task.isSuccessful()) {
 
-                     setFragment(new LoginFragment());
+                     setFragment(new LoginFragmentone());
                  } else {
 
                      Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();

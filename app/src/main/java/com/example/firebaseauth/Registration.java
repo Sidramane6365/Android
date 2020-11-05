@@ -16,7 +16,7 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         frameLayout=findViewById(R.id.reg_frame);
-        setFragment(new LoginFragment());
+        setFragment(new LoginFragmentone());
     }
 
     private void setFragment(Fragment fragment)

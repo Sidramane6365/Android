@@ -71,7 +71,7 @@ public class RegFragment extends Fragment {
         haveAnAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new LoginFragment());
+                setFragment(new LoginFragmentone());
             }
         });
 
