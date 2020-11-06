@@ -251,7 +251,7 @@ public class RegisterFragment extends Fragment {
                         {
                             regbutton.setEnabled(true);
                             regbutton.setTextColor(Color.rgb(255,255,255));
-                            Toast.makeText(getActivity(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"Something went wrong. Already Registered",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
