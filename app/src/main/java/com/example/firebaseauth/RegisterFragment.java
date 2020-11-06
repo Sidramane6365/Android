@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -160,30 +161,23 @@ public class RegisterFragment extends Fragment {
         regbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HashMap<String,Object> map=new HashMap<>();
-                map.put("HName",name.getText().toString());
-                map.put("HAddress",address.getText().toString());
 
-                map.put("Email",email.getText().toString());
-                map.put("Password",password.getText().toString());
-
-                FirebaseDatabase.getInstance().getReference().child("Users").push()
-                        .setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.i("aaa", "onComplete: ");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("bbb", "onFailure: "+e.toString());
-                    }
-                });
                 //send data to firebase
+                storedata();
                 checkemail();
             }
         });
     }
+
+    private void storedata() {
+        FirebaseDatabase root=FirebaseDatabase.getInstance();
+        DatabaseReference reference=root.getReference("Users");
+
+        UserhelperClass adddata=new UserhelperClass(name.getText().toString(),address.getText().toString(),
+                email.getText().toString(),password.getText().toString());
+        reference.child(name.getText().toString()).setValue(adddata);
+    }
+
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(mainFrameLayout.getId(),fragment);

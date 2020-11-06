@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/Hospname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -55,7 +55,7 @@
             android:drawableLeft="@drawable/ic_bperson" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/Hospaddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -72,11 +72,11 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/Hospname"
             android:drawableLeft="@drawable/ic_bapartment" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/Hospemail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -93,11 +93,11 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+            app:layout_constraintTop_toBottomOf="@+id/Hospaddress"
             android:drawableLeft="@drawable/ic_mail" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/Hospbed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -114,11 +114,11 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
+            app:layout_constraintTop_toBottomOf="@+id/Hospemail"
             android:drawableLeft="@drawable/ic_bed" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/Hospcylinder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -135,11 +135,11 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+            app:layout_constraintTop_toBottomOf="@+id/Hospbed"
             android:drawableLeft="@drawable/ic_cylinder" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/Hospsave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -148,6 +148,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:background="@drawable/black_back"
+            android:onClick="update"
             android:padding="16dp"
             android:text="SAVE"
             android:textColor="@color/colorblack"
@@ -155,6 +156,6 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+            app:layout_constraintTop_toBottomOf="@+id/Hospcylinder" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
