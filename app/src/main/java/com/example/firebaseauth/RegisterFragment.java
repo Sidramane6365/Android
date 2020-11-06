@@ -32,17 +32,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 
-public class RegFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
 
 
-    public RegFragment() {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 
- TextView haveAnAccount;
+    TextView haveAnAccount;
     FrameLayout mainFrameLayout;
-    private EditText name,address,beds,cylinders,email,password,confpassword;
+    private EditText name,address,email,password,confpassword;
     private Button regbutton;
     private FirebaseAuth firebaseAuth;
     private String emailpat="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
@@ -51,13 +51,11 @@ public class RegFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_reg, container, false);
-      haveAnAccount = view.findViewById(R.id.gotoLogin);
-       mainFrameLayout=getActivity().findViewById(R.id.reg_frame);
-       name=view.findViewById(R.id.regName);
+        View view= inflater.inflate(R.layout.fragment_register, container, false);
+        haveAnAccount = view.findViewById(R.id.gotoLogin);
+        mainFrameLayout=getActivity().findViewById(R.id.reg_frame);
+        name=view.findViewById(R.id.regName);
         address=view.findViewById(R.id.regAddress);
-        beds=view.findViewById(R.id.regBeds);
-        cylinders=view.findViewById(R.id.regCylinders);
         email=view.findViewById(R.id.loginEmail);
         password=view.findViewById(R.id.loginPassword);
         confpassword=view.findViewById(R.id.confirmPassword);
@@ -156,38 +154,8 @@ public class RegFragment extends Fragment {
 
             }
         });
-        beds.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkUserInputs();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        cylinders.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkUserInputs();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         regbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,8 +163,7 @@ public class RegFragment extends Fragment {
                 HashMap<String,Object> map=new HashMap<>();
                 map.put("HName",name.getText().toString());
                 map.put("HAddress",address.getText().toString());
-                map.put("Cylinders",cylinders.getText().toString());
-                map.put("Beds",beds.getText().toString());
+
                 map.put("Email",email.getText().toString());
                 map.put("Password",password.getText().toString());
 
@@ -212,48 +179,35 @@ public class RegFragment extends Fragment {
                         Log.i("bbb", "onFailure: "+e.toString());
                     }
                 });
-            //send data to firebase
-            checkemail();
+                //send data to firebase
+                checkemail();
             }
         });
     }
-        private void setFragment(Fragment fragment) {
-            FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(mainFrameLayout.getId(),fragment);
-            fragmentTransaction.commit();
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(mainFrameLayout.getId(),fragment);
+        fragmentTransaction.commit();
 
 
-        }
-        private  void checkUserInputs()
+    }
+    private  void checkUserInputs()
+    {
+        if(!TextUtils.isEmpty(name.getText()))
         {
-            if(!TextUtils.isEmpty(name.getText()))
-            {
-                if(!TextUtils.isEmpty(email.getText())){
-                    if(!TextUtils.isEmpty(address.getText())){
-                        if(!TextUtils.isEmpty(password.getText()) && password.length()>=8){
-                            if(!TextUtils.isEmpty(confpassword.getText())){
-                                if(!TextUtils.isEmpty(beds.getText())){
-                                    if(!TextUtils.isEmpty(cylinders.getText())){
-                                            regbutton.setEnabled(true);
-                                            regbutton.setTextColor(Color.rgb(255,255,255));
-                                    }else{
-                                        regbutton.setEnabled(false);
-                                        regbutton.setTextColor(Color.argb(50,255,255,255));
-                                    }
-                                }else{
-                                    regbutton.setEnabled(false);
-                                    regbutton.setTextColor(Color.argb(50,255,255,255));
-                                }
-                            }else{
-                                regbutton.setEnabled(false);
-                                regbutton.setTextColor(Color.argb(50,255,255,255));
-                            }
+            if(!TextUtils.isEmpty(email.getText())){
+                if(!TextUtils.isEmpty(address.getText())){
+                    if(!TextUtils.isEmpty(password.getText()) && password.length()>=8){
+                        if(!TextUtils.isEmpty(confpassword.getText())){
+                            regbutton.setEnabled(true);
+                            regbutton.setTextColor(Color.rgb(255,255,255));
+
                         }else{
-                            password.setError("Password must be at least of length 8!");
                             regbutton.setEnabled(false);
                             regbutton.setTextColor(Color.argb(50,255,255,255));
                         }
                     }else{
+                        password.setError("Password must be at least of length 8!");
                         regbutton.setEnabled(false);
                         regbutton.setTextColor(Color.argb(50,255,255,255));
                     }
@@ -265,44 +219,48 @@ public class RegFragment extends Fragment {
                 regbutton.setEnabled(false);
                 regbutton.setTextColor(Color.argb(50,255,255,255));
             }
-
+        }else{
+            regbutton.setEnabled(false);
+            regbutton.setTextColor(Color.argb(50,255,255,255));
         }
-        private  void checkemail()
+
+    }
+    private  void checkemail()
+    {
+        if(email.getText().toString().matches(emailpat))
         {
-            if(email.getText().toString().matches(emailpat))
+            if(password.getText().toString().equals(confpassword.getText().toString()))
             {
-                if(password.getText().toString().equals(confpassword.getText().toString()))
-                {
-                    regbutton.setEnabled(false);
-                    regbutton.setTextColor(Color.argb(50,255,255,255));
+                regbutton.setEnabled(false);
+                regbutton.setTextColor(Color.argb(50,255,255,255));
 
-                    Toast.makeText(getContext(),"Please wait a while........",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Please wait a while........",Toast.LENGTH_SHORT).show();
 
 
-                    firebaseAuth.createUserWithEmailAndPassword(email.getText().toString()
-                            ,password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                            {
-                                Intent intent=new Intent(getActivity(),MainActivity.class);
-                                startActivity(intent);
-                                getActivity().finish();
-                            }
-                            else
-                            {
-                                regbutton.setEnabled(true);
-                                regbutton.setTextColor(Color.rgb(255,255,255));
-                                Toast.makeText(getActivity(),"Something went wrong",Toast.LENGTH_SHORT).show();
-                            }
+                firebaseAuth.createUserWithEmailAndPassword(email.getText().toString()
+                        ,password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Intent intent=new Intent(getActivity(),MainActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
                         }
-                    });
-                }else {
-                    confpassword.setError("Password doesn't match!");
-                }
-            }else
-            {
-                email.setError("Invalid Email!");
+                        else
+                        {
+                            regbutton.setEnabled(true);
+                            regbutton.setTextColor(Color.rgb(255,255,255));
+                            Toast.makeText(getActivity(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }else {
+                confpassword.setError("Password doesn't match!");
             }
+        }else
+        {
+            email.setError("Invalid Email!");
         }
+    }
 }

@@ -100,7 +100,7 @@ public class LoginFragmentone extends Fragment {
         gotoRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new RegFragment());
+                setFragment(new RegisterFragment());
             }
         });
         //After clicking on Skip where to go

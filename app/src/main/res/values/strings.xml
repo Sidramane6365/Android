@@ -6,6 +6,7 @@
     <string name="resetpass">NEW\n CREDENTIALS</string>
     <string name="logintext">DO NOT HAVE ACCOUNT? CREATE </string>
     <string name="logintextone">ALREADY HAVE AN\n ACCOUNT? </string>
+    <string name="logintexttwo">ALREADY HAVE AN ACCOUNT? </string>
     <string name="passupdate">PASSWORD\n UPDATED</string>
     <string name="passupdateone">YOUR PASSWORD HAS BEEN UPDATED</string>
     <string name="resetpassone">YOUR IDENTITY HAS BEEN VERIFIED!\n SET YOUR NEW PASSWORD</string>
