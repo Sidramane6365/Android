@@ -117,6 +117,7 @@
             android:layout_height="wrap_content"
             android:background="@color/coloryel"
             android:text="Verify Code"
+            android:textSize="20dp"
             android:layout_marginTop="30dp"
             android:textColor="@color/colorblack"
             />

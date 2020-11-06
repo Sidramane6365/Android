@@ -11,7 +11,9 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,20 +34,22 @@ public class ResetPassword extends Fragment {
     public ResetPassword() {
         // Required empty public constructor
     }
+
     FrameLayout mainFramelayout;
     private EditText fpemail;
-private Button fpbtn;
-    private String emailpat="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
-private FirebaseAuth firebaseAuth;
- @Override
+    private Button fpbtn;
+    private String emailpat = "[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+    private FirebaseAuth firebaseAuth;
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_reset_password, container, false);
-        fpemail=view.findViewById(R.id.fpEmail);
-        fpbtn=view.findViewById(R.id.fpButton);
-        firebaseAuth=FirebaseAuth.getInstance();
-     mainFramelayout=getActivity().findViewById(R.id.reg_frame);
+        View view = inflater.inflate(R.layout.fragment_reset_password, container, false);
+        fpemail = view.findViewById(R.id.fpEmail);
+        fpbtn = view.findViewById(R.id.fpButton);
+        firebaseAuth = FirebaseAuth.getInstance();
+        mainFramelayout = getActivity().findViewById(R.id.reg_frame);
         return view;
         // Inflate the layout for this fragment
 
@@ -54,41 +58,69 @@ private FirebaseAuth firebaseAuth;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        fpemail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkUserInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         fpbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                     checkmail();
-                }
+                checkmail();
+            }
         });
     }
+
     private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(mainFramelayout.getId(),fragment);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(mainFramelayout.getId(), fragment);
         fragmentTransaction.commit();
- }
- private void checkmail() {
-     if (fpemail.getText().toString().matches(emailpat)) {
-     Toast.makeText(getContext(), "Link send to email", Toast.LENGTH_SHORT).show();
-      firebaseAuth.sendPasswordResetEmail(fpemail.getText().toString()
-         ).addOnCompleteListener(new OnCompleteListener<Void>() {
-             @Override
-             public void onComplete(@NonNull Task<Void> task) {
+    }
 
-                 if (task.isSuccessful()) {
+    private void checkmail() {
+        if (fpemail.getText().toString().matches(emailpat)) {
+            Toast.makeText(getContext(), "Link send to email", Toast.LENGTH_SHORT).show();
+            firebaseAuth.sendPasswordResetEmail(fpemail.getText().toString()
+            ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
 
-                     setFragment(new LoginFragmentone());
-                 } else {
+                    if (task.isSuccessful()) {
 
-                     Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                 }
-             }
+                        setFragment(new LoginFragmentone());
+                    } else {
+
+                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
 
-         });
-     }
-     else
-     {
-         Toast.makeText(getActivity(),"Wrong Email!!!",Toast.LENGTH_SHORT).show();
-     }
- }
+            });
+        } else {
+            Toast.makeText(getActivity(), "Wrong Email!!!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void checkUserInputs() {
+
+        if (!TextUtils.isEmpty(fpemail.getText())) {
+            fpbtn.setEnabled(true);
+            fpbtn.setTextColor(Color.rgb(255, 255, 255));
+        } else {
+            fpbtn.setEnabled(false);
+            fpbtn.setTextColor(Color.argb(50, 255, 255, 255));
+        }
+    }
+
 }
