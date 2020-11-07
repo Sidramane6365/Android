@@ -1,5 +1,6 @@
 package com.example.firebaseauth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,14 +12,19 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText hname,haddress,email,beds,cylinder;
     String _HNAME,_HADDRESS,_EMAIL,Dotemail;
     DatabaseReference reference;
+    FirebaseAuth firebaseAuth;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -31,23 +37,37 @@ public class MainActivity extends AppCompatActivity {
         email=(EditText)findViewById(R.id.Hospemail);
         beds=(EditText)findViewById(R.id.Hospbed);
         cylinder=(EditText)findViewById(R.id.Hospcylinder);
-        reference= FirebaseDatabase.getInstance().getReference("Users");
 
+        firebaseAuth=FirebaseAuth.getInstance();
         showuserdata();
     }
 
     public void showuserdata()
     {
         Intent intent=getIntent();
-
         _EMAIL=intent.getStringExtra("USER_mail");
         Dotemail=encodeUserEmail(_EMAIL);
+        reference= FirebaseDatabase.getInstance().getReference("Users").child(Dotemail);
 
-        _HNAME=reference.child(Dotemail).child("name").getKey();
-        _HADDRESS=reference.child(Dotemail).child("address").getKey();
-        hname.setText(_HNAME);
-        haddress.setText("Hi");
-        email.setText(_EMAIL);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                _HNAME=snapshot.child("name").getValue().toString();
+                _HADDRESS=snapshot.child("name").getValue().toString();
+                hname.setText(_HNAME);
+                haddress.setText(_HADDRESS);
+                email.setText(_EMAIL);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
     public void update(View view)
     {
