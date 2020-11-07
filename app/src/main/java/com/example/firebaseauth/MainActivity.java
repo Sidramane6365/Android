@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     EditText hname,haddress,email,beds,cylinder;
-    String _HNAME,_HADDRESS,_EMAIL;
+    String _HNAME,_HADDRESS,_EMAIL,Dotemail;
     DatabaseReference reference;
 
     @SuppressLint("WrongViewCast")
@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=getIntent();
 
         _EMAIL=intent.getStringExtra("USER_mail");
+        Dotemail=encodeUserEmail(_EMAIL);
 
-        _HNAME=intent.getStringExtra("USER_name");
-        _HADDRESS=intent.getStringExtra("USER_address");
+        _HNAME=reference.child(Dotemail).child("name").getKey();
+        _HADDRESS=reference.child(Dotemail).child("address").getKey();
         hname.setText(_HNAME);
         haddress.setText("Hi");
         email.setText(_EMAIL);
@@ -100,5 +101,12 @@ public class MainActivity extends AppCompatActivity {
         {
             return false;
         }
+    }
+    static String encodeUserEmail(String userEmail) {
+        return userEmail.replace(".", ",");
+    }
+
+    static String decodeUserEmail(String userEmail) {
+        return userEmail.replace(",", ".");
     }
 }

@@ -47,6 +47,7 @@ public class RegisterFragment extends Fragment {
     private Button regbutton;
     private FirebaseAuth firebaseAuth;
     private String emailpat="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+    private String Commaemail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,9 +174,11 @@ public class RegisterFragment extends Fragment {
         FirebaseDatabase root=FirebaseDatabase.getInstance();
         DatabaseReference reference=root.getReference("Users");
 
+        Commaemail=encodeUserEmail(email.getText().toString());
         UserhelperClass adddata=new UserhelperClass(name.getText().toString(),address.getText().toString(),
                 email.getText().toString(),password.getText().toString());
-        reference.child(address.getText().toString()).setValue(adddata);
+
+        reference.child(Commaemail).setValue(adddata);
     }
 
     private void setFragment(Fragment fragment) {
@@ -237,10 +240,9 @@ public class RegisterFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Intent intent=new Intent(getActivity(),SplashAcivity.class);
+                            Intent intent=new Intent(getActivity(),MainActivity.class);
                             intent.putExtra("USER_mail",email.getText().toString());
-                            intent.putExtra("USER_name",name.getText().toString());
-                            intent.putExtra("USER_address",address.getText().toString());
+
                             startActivity(intent);
                             getActivity().finish();
                         }
