@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        hname=findViewById(R.id.Hospname);
-        haddress=findViewById(R.id.Hospaddress);
-        email=findViewById(R.id.Hospemail);
-        beds=findViewById(R.id.Hospbed);
-        cylinder=findViewById(R.id.Hospcylinder);
+        hname=(EditText) findViewById(R.id.Hospname);
+        haddress=(EditText)findViewById(R.id.Hospaddress);
+        email=(EditText)findViewById(R.id.Hospemail);
+        beds=(EditText)findViewById(R.id.Hospbed);
+        cylinder=(EditText)findViewById(R.id.Hospcylinder);
         reference= FirebaseDatabase.getInstance().getReference("Users");
 
         showuserdata();
@@ -38,12 +39,13 @@ public class MainActivity extends AppCompatActivity {
     public void showuserdata()
     {
         Intent intent=getIntent();
-        _HNAME =intent.getStringExtra("HName");
-        _HADDRESS=intent.getStringExtra("HAddress");
-        _EMAIL=intent.getStringExtra("HName");
 
+        _EMAIL=intent.getStringExtra("USER_mail");
+
+        _HNAME=intent.getStringExtra("USER_name");
+        _HADDRESS=intent.getStringExtra("USER_address");
         hname.setText(_HNAME);
-        haddress.setText(_HADDRESS);
+        haddress.setText("Hi");
         email.setText(_EMAIL);
     }
     public void update(View view)
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isEmailchanged() {
         if(! _EMAIL.equals(email.getText().toString()))
         {
-            reference.child(_EMAIL).child("email").setValue(email.getText().toString());
+            reference.child(_HNAME).child("email").setValue(email.getText().toString());
             _EMAIL=email.getText().toString();
             return true;
         }

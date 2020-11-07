@@ -168,6 +168,7 @@ public class LoginFragmentone extends Fragment {
                         if(task.isSuccessful())
                         {
                             Intent intent=new Intent(getActivity(),MainActivity.class);
+                            intent.putExtra("USER_mail",useremail.getText().toString());
                             startActivity(intent);
                             getActivity().finish();
                         }

@@ -175,7 +175,7 @@ public class RegisterFragment extends Fragment {
 
         UserhelperClass adddata=new UserhelperClass(name.getText().toString(),address.getText().toString(),
                 email.getText().toString(),password.getText().toString());
-        reference.child(name.getText().toString()).setValue(adddata);
+        reference.child(address.getText().toString()).setValue(adddata);
     }
 
     private void setFragment(Fragment fragment) {
@@ -237,7 +237,10 @@ public class RegisterFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Intent intent=new Intent(getActivity(),MainActivity.class);
+                            Intent intent=new Intent(getActivity(),SplashAcivity.class);
+                            intent.putExtra("USER_mail",email.getText().toString());
+                            intent.putExtra("USER_name",name.getText().toString());
+                            intent.putExtra("USER_address",address.getText().toString());
                             startActivity(intent);
                             getActivity().finish();
                         }
@@ -256,5 +259,12 @@ public class RegisterFragment extends Fragment {
         {
             email.setError("Invalid Email!");
         }
+    }
+    static String encodeUserEmail(String userEmail) {
+        return userEmail.replace(".", ",");
+    }
+
+    static String decodeUserEmail(String userEmail) {
+        return userEmail.replace(",", ".");
     }
 }
