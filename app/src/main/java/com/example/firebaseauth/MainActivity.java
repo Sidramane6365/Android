@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText hname,haddress,email,beds,cylinder;
     String _HNAME,_HADDRESS,_EMAIL,Dotemail;
+    Button save;
     DatabaseReference reference;
     FirebaseAuth firebaseAuth;
 
@@ -37,9 +43,59 @@ public class MainActivity extends AppCompatActivity {
         email=(EditText)findViewById(R.id.Hospemail);
         beds=(EditText)findViewById(R.id.Hospbed);
         cylinder=(EditText)findViewById(R.id.Hospcylinder);
+        save=findViewById(R.id.Hospsave);
 
         firebaseAuth=FirebaseAuth.getInstance();
         showuserdata();
+        beds.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkUserInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        cylinder.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkUserInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void checkUserInputs() {
+        if(!TextUtils.isEmpty(beds.getText())){
+            if(!TextUtils.isEmpty(cylinder.getText())){
+                save.setEnabled(true);
+                save.setTextColor(Color.rgb(255,255,255));
+
+            }else{
+                save.setEnabled(false);
+                save.setTextColor(Color.argb(50,255,255,255));
+            }
+        }else{
+
+            save.setEnabled(false);
+            save.setTextColor(Color.argb(50,255,255,255));
+        }
     }
 
     public void showuserdata()
@@ -50,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
         reference= FirebaseDatabase.getInstance().getReference("Users").child(Dotemail);
 
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 _HNAME=snapshot.child("name").getValue().toString();
-                _HADDRESS=snapshot.child("name").getValue().toString();
+                _HADDRESS=snapshot.child("address").getValue().toString();
                 hname.setText(_HNAME);
                 haddress.setText(_HADDRESS);
                 email.setText(_EMAIL);
@@ -71,57 +127,21 @@ public class MainActivity extends AppCompatActivity {
     }
     public void update(View view)
     {
-        if(isaddresschanged() || isNamechanged() || isEmailchanged())
-        {
-            Toast.makeText(this, "Data has been updated", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(this, "Data is same and can not be updated", Toast.LENGTH_SHORT).show();
-        }
-    }
 
-    private boolean isEmailchanged() {
-        if(! _EMAIL.equals(email.getText().toString()))
-        {
-            reference.child(_HNAME).child("email").setValue(email.getText().toString());
-            _EMAIL=email.getText().toString();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private boolean isNamechanged()
-    {
-        if(! _HNAME.equals(hname.getText().toString()))
-        {
-            reference.child(_HNAME).child("name").setValue(hname.getText().toString());
+            reference.child("name").setValue(hname.getText().toString());
             _HNAME=hname.getText().toString();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private boolean isaddresschanged()
-    {
-        if(! _HADDRESS.equals(haddress.getText().toString()))
-        {
-            reference.child(_HNAME).child("address").setValue(haddress.getText().toString());
+            reference.child("email").setValue(email.getText().toString());
+            _EMAIL=email.getText().toString();
+            reference.child("address").setValue(haddress.getText().toString());
             _HADDRESS=haddress.getText().toString();
-            return true;
+            reference.child("beds").setValue(beds.getText().toString());
+            reference.child("cylinders").setValue(cylinder.getText().toString());
+            Toast.makeText(this, "Data has been updated", Toast.LENGTH_SHORT).show();
 
-        }
-        else
-        {
-            return false;
-        }
+
     }
+
+
     static String encodeUserEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
