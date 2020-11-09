@@ -107,7 +107,9 @@ public class LoginFragmentone extends Fragment {
         gotomap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new MapFragment());
+                Intent intent=new Intent(getActivity(),MapActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         //After clicking on forgot password where to go
