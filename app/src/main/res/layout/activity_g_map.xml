@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
     tools:context=".GMapActivity">
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gmap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
-    
-    <SearchView
-        android:layout_width="match_parent"
+ <EditText
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:id="@+id/search"
+     android:hint="Enter Address"
+     android:drawablePadding="16dp"
+     android:drawableLeft="@drawable/ic_person1"
+     android:gravity="center_vertical"
+     android:background="@drawable/search"
+     android:padding="16dp"
+     />
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/search"
-        android:queryHint="Seach.."
-        android:iconifiedByDefault="false"
-        android:layout_margin="10dp"
-        android:elevation="5dp"
-        android:background="@drawable/search"/>
-</RelativeLayout>
+        android:id="@+id/searchtext"
+        android:textColor="@color/colorPrimary"
+        android:padding="12dp"
+        android:layout_marginTop="32dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/texttwo"
+        android:textColor="@color/colorPrimary"
+      android:gravity="center"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
