@@ -85,7 +85,7 @@ public class MapActivity extends AppCompatActivity {
                             MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("You Are Here");
 
                             googleMap.addMarker(markerOptions);
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
                         }
                     });
             }
