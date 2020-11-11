@@ -107,7 +107,7 @@ public class LoginFragmentone extends Fragment {
         gotomap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),MapActivity.class);
+                Intent intent=new Intent(getActivity(),PickAddress.class);
                 startActivity(intent);
                 getActivity().finish();
             }
