@@ -35,13 +35,11 @@ import java.util.HashMap;
 
 public class RegisterFragment extends Fragment {
 
-
-
     public RegisterFragment() {
         // Required empty public constructor
     }
 
-    TextView haveAnAccount;
+    TextView haveAnAccount,addressbtn;
     FrameLayout mainFrameLayout;
     private EditText name,address,email,password,confpassword;
     private Button regbutton;
@@ -62,19 +60,13 @@ public class RegisterFragment extends Fragment {
         password=view.findViewById(R.id.loginPassword);
         confpassword=view.findViewById(R.id.confirmPassword);
         regbutton=view.findViewById(R.id.registerButton);
+        addressbtn=view.findViewById(R.id.Addbutton);
         firebaseAuth=FirebaseAuth.getInstance();
 
         return view;
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        haveAnAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(new LoginFragmentone());
-            }
-        });
-
 
         name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -158,7 +150,12 @@ public class RegisterFragment extends Fragment {
         });
 
 
-
+        haveAnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFragment(new LoginFragmentone());
+            }
+        });
         regbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,6 +163,15 @@ public class RegisterFragment extends Fragment {
                 //send data to firebase
                 storedata();
                 checkemail();
+            }
+        });
+        addressbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(getActivity(),PickAddress.class);
+                    startActivity(intent);
+                getActivity().finish();
             }
         });
     }
