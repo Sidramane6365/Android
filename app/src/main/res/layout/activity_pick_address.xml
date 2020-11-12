@@ -36,7 +36,7 @@
         android:layout_marginRight="71dp"
         android:layout_marginBottom="46dp"
         android:text="Select Address"
-        android:textColor="@color/colorwhite"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 </RelativeLayout>
