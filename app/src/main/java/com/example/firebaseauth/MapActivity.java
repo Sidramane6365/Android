@@ -44,6 +44,7 @@ public class MapActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         getmylocation();
+                        showothers();
                     }
 
 
@@ -92,6 +93,8 @@ public class MapActivity extends AppCompatActivity {
         });
 
     }
+    public void showothers(){
 
+    }
 
 }

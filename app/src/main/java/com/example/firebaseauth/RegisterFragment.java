@@ -2,6 +2,7 @@ package com.example.firebaseauth;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class RegisterFragment extends Fragment {
 
@@ -46,6 +49,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private String emailpat="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
     private String Commaemail;
+    Double lat,longi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -170,10 +174,24 @@ public class RegisterFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent intent=new Intent(getActivity(),PickAddress.class);
-                    startActivity(intent);
-                getActivity().finish();
+                startActivityForResult(intent,1);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode ==1 )
+        {
+            if (resultCode== RESULT_OK)
+            {
+                String location=data.getStringExtra("Address");
+                address.setText(location);
+                lat=data.getDoubleExtra("Latitude",0);
+                longi=data.getDoubleExtra("Longitude",0);
+            }
+        }
     }
 
     private void storedata() {
@@ -182,7 +200,7 @@ public class RegisterFragment extends Fragment {
 
         Commaemail=encodeUserEmail(email.getText().toString());
         UserhelperClass adddata=new UserhelperClass(name.getText().toString(),address.getText().toString(),
-                email.getText().toString(),password.getText().toString());
+                email.getText().toString(),password.getText().toString(),lat.toString(),longi.toString());
 
         reference.child(Commaemail).setValue(adddata);
     }

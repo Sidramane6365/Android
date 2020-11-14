@@ -11,9 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -33,8 +35,9 @@ public class PickAddress extends FragmentActivity implements OnMapReadyCallback 
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView searchView;
-    TextView register;
-
+    Button register,Change;
+    String _EMAIL;
+    Address address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,6 @@ public class PickAddress extends FragmentActivity implements OnMapReadyCallback 
         searchView=findViewById(R.id.search);
         mapFragment=(SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.gmapfrag);
         register=findViewById(R.id.gotoregister);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -58,7 +60,7 @@ public class PickAddress extends FragmentActivity implements OnMapReadyCallback 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Address address = addressList.get(0);
+                    address = addressList.get(0);
 
                     LatLng latLng=new LatLng(address.getLatitude(),address.getLongitude());
                     map.addMarker(new MarkerOptions().position(latLng).title(address.toString().substring(24)));
@@ -77,11 +79,18 @@ public class PickAddress extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(PickAddress.this,PickAddress.class);
-                startActivity(intent);
-                PickAddress.this.finish();
+                Intent data= new Intent();
+                //set the value/data to pass back
+                data.putExtra("Address",address.getAddressLine(0).toString());
+                data.putExtra("Latitude", (address.getLatitude()));
+                data.putExtra("Longitude",address.getLongitude());
+                //set a result code, It is either RESULT_OK or RESULT_CANCELLED
+                setResult(RESULT_OK,data);
+                //Close the activity
+                finish();
             }
         });
+
     }
 
 
