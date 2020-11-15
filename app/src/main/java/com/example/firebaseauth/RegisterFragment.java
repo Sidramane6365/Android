@@ -200,7 +200,7 @@ public class RegisterFragment extends Fragment {
 
         Commaemail=encodeUserEmail(email.getText().toString());
         UserhelperClass adddata=new UserhelperClass(name.getText().toString(),address.getText().toString(),
-                email.getText().toString(),password.getText().toString(),lat.toString(),longi.toString());
+                email.getText().toString(),password.getText().toString(),lat,longi);
 
         reference.child(Commaemail).setValue(adddata);
     }

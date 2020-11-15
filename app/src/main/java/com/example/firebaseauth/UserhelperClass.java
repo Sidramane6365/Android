@@ -4,9 +4,10 @@ import android.widget.EditText;
 
 public class UserhelperClass
 {
-    String name,address,email,password,lati,longi;
+    String name,address,email,password;
+    Double lati,longi;
    public UserhelperClass(){}
-    public UserhelperClass(String name,String address,String email,String password,String lati,String longi)
+    public UserhelperClass(String name,String address,String email,String password,Double lati,Double longi)
     {
         this.name=name;
         this.address=address;
@@ -44,23 +45,24 @@ public class UserhelperClass
         return password;
     }
 
+    public Double getLati() {
+        return lati;
+    }
+
+    public void setLati(Double lati) {
+        this.lati = lati;
+    }
+
+    public Double getLongi() {
+        return longi;
+    }
+
+    public void setLongi(Double longi) {
+        this.longi = longi;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getLati() {
-        return lati;
-    }
-
-    public String getLongi() {
-        return longi;
-    }
-
-    public void setLongi(String longi) {
-        this.longi = longi;
-    }
-
-    public void setLati(String lati) {
-        this.lati = lati;
-    }
 }

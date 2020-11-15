@@ -1,5 +1,6 @@
 package com.example.firebaseauth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -19,6 +20,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -26,10 +32,12 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     SupportMapFragment smf;
     FusedLocationProviderClient client;
+    DatabaseReference reference;
+    GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,7 @@ public class MapActivity extends AppCompatActivity {
                         permissionToken.continuePermissionRequest();
                     }
                 }).check();
-
+        smf.getMapAsync(this);
     }
 
     public void getmylocation() {
@@ -86,7 +94,7 @@ public class MapActivity extends AppCompatActivity {
                             MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("You Are Here");
 
                             googleMap.addMarker(markerOptions);
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
                         }
                     });
             }
@@ -94,7 +102,33 @@ public class MapActivity extends AppCompatActivity {
 
     }
     public void showothers(){
+        reference= FirebaseDatabase.getInstance().getReference("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                for (DataSnapshot snapshot1:snapshot.getChildren())
+                {
+                    Double latitude=snapshot1.child("lati").getValue(Double.class);
+                    Double longitude=snapshot1.child("longi").getValue(Double.class);
+                    LatLng latLng=new LatLng(latitude,longitude);
+                    MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("Hospital");
+
+                    map.addMarker(markerOptions);
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map=googleMap;
+    }
 }
