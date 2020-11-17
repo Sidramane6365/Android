@@ -111,8 +111,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 {
                     Double latitude=snapshot1.child("lati").getValue(Double.class);
                     Double longitude=snapshot1.child("longi").getValue(Double.class);
+                    String beds= (String) snapshot1.child("beds").getValue();
+                    String cylinders= (String) snapshot1.child("cylinders").getValue();
                     LatLng latLng=new LatLng(latitude,longitude);
-                    MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("Hospital");
+                    MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("Beds - "+beds);
 
                     map.addMarker(markerOptions);
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
