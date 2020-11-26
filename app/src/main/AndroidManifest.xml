@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".PickAddress" />
-        <activity android:name=".MapActivity" />
+        <activity android:name=".MapActivity"
+            android:parentActivityName=".SplashAcivity"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".Registration" />
         <activity android:name=".SplashAcivity">
