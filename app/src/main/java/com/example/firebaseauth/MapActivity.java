@@ -27,6 +27,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -117,6 +118,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             LatLng latLng=new LatLng(location.getLatitude(),location.getLongitude());
                             MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("You Are Here");
 
+
+
                             googleMap.addMarker(markerOptions);
                             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
                         }
@@ -141,6 +144,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     LatLng latLng=new LatLng(latitude,longitude);
                     MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("B- "+beds+" C- "+cylinders);
 
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                     map.addMarker(markerOptions);
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
                 }

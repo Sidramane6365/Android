@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button save;
     DatabaseReference reference;
     FirebaseAuth firebaseAuth;
+    ImageView img;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -44,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
         beds=(EditText)findViewById(R.id.Hospbed);
         cylinder=(EditText)findViewById(R.id.Hospcylinder);
         save=findViewById(R.id.Hospsave);
+        img=findViewById(R.id.image1);
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SplashAcivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         firebaseAuth=FirebaseAuth.getInstance();
         showuserdata();
